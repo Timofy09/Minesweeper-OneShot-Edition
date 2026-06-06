@@ -406,7 +406,7 @@ namespace Minesweeper
 
             using (SolidBrush openBrush = new SolidBrush(openColor))
             using (SolidBrush closedBrush = new SolidBrush(closedColor))
-            using (Pen gridPen = new Pen(gridColor, 1f))
+            using (Pen gridPen = new Pen(gridColor, 2))
             {
                 for (int x = 0; x < width; x++)
                 {
