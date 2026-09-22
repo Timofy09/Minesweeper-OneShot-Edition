@@ -486,15 +486,11 @@ namespace Minesweeper
             Random random = new Random();
             DateTime now = DateTime.Now;
 
-            if (!Program.NightMsgBox && now.Hour <= 3 && now.Hour >= 2)
+            if (!Program.NightMsgBox && now.Hour >= 1 && now.Hour < 5)
             {
                 Program.NightMsgBox = true;
                 await Task.Delay(10000);
-                DialogResult shutdown = MessageBox.Show(Properties.Resources.NightMessage1 + now.ToString("HH:mm") + Properties.Resources.NightMessage2, Properties.Resources.NightMessageTitle + Program.UserName, MessageBoxButtons.YesNo);
-                if (shutdown == DialogResult.Yes)
-                {
-                    System.Diagnostics.Process.Start("shutdown", "/s /t 180");
-                }
+                Program.GoodnightNiko(Properties.Resources.NightMsg, Properties.Resources.Niko);
             }
 
             if (!Program.Scare1)

@@ -38,6 +38,7 @@ namespace Minesweeper
         static void Main()
         {
             LoadFonts();
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US"); // Временная строка для проверки англ. локализации
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -46,22 +47,28 @@ namespace Minesweeper
             if (File.Exists(path))
             {
                 File.Delete(path);
-
-                DialogResult result = MessageBox.Show(Properties.Resources.ForceCloseMsgBox1 + UserName + "..." + Properties.Resources.ForceCloseMsgBox2 + "\n\n" + Properties.Resources.ForceCloseMsgBox3, Properties.Resources.Niko, MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.Yes)
+                try
                 {
-                    MessageBox.Show(Properties.Resources.ForceCloseMsgBoxYes, Properties.Resources.Niko);
+                    MessageBox.Show(Properties.Resources.ForceCloseMsg, Properties.Resources.ForceCloseMsgTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowLampThenBSOD();
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show(Properties.Resources.ForceCloseMsgBoxNo, Properties.Resources.Niko);
-                    System.Diagnostics.Process.Start("shutdown", "/s /t 10");
+                    try { MessageBox.Show("Fatal error during BSOD sequence: " + ex.Message); } catch { }
+                    Application.Exit();
                 }
+                return;
             }
-            Application.Run(new MainMenu());
+            Application.Run(new MainMenu()); //main menu ini
 
             CleanUpTempFiles();
+        }
+
+        public static string GetNikoDataPath()
+        {
+            string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MinesweeperOneShot");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return Path.Combine(folder, "niko_state.txt");
         }
 
         private static void PlaySoundFromResource(string fileName)
@@ -90,7 +97,7 @@ namespace Minesweeper
             }
         }
 
-        private static void PlayMusic(string fileName, bool loop)
+        public static void PlayMusic(string fileName, bool loop)
         {
             if (!MusicEnabled) return;
 
@@ -132,7 +139,7 @@ namespace Minesweeper
 
                 if (!File.Exists(fontPath))
                 {
-                    MessageBox.Show($"Критическая ошибка: Файл шрифта не найден по пути:\n{fontPath}\n\nУбедись, что папка Resources скопирована вместе с игрой.", "Fonts Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Critical Error: Font file not found in:\n{fontPath}\n\nEnsure that Resources folder in the game directory.", "Fonts Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -180,11 +187,47 @@ namespace Minesweeper
             catch { }
         }
 
-        public static string GetNikoDataPath()
+        private static void ShowLampThenBSOD()
         {
-            string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MinesweeperOneShot");
-            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-            return Path.Combine(folder, "niko_state.txt");
+            using (var lamp = new LampForm())
+            {
+                lamp.ShowDialog();
+            }
+
+            var bsod = new BSODForm();
+            Application.Run(bsod);
+        }
+
+        public static void GoodnightNiko(string message = null, string title = null)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                string dialogTitle = title ?? Properties.Resources.World_sFate;
+
+                DialogResult result = MessageBox.Show(
+                    message,
+                    dialogTitle,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result != DialogResult.Yes)
+                {
+                    PlayNoSound();
+                    return;
+                }
+
+                PlayYesSound();
+            }
+
+            MessageBox.Show(Properties.Resources.Goodnight, Properties.Resources.Niko);
+
+            using (var cutscene = new CutsceneForm())
+            {
+                cutscene.ShowDialog();
+            }
+
+            Application.Exit();
         }
 
         public static void PlayNoSound()

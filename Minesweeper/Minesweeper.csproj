@@ -80,6 +80,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BSODForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CutsceneForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CutsceneForm.Designer.cs">
+      <DependentUpon>CutsceneForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DifficultySelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +100,9 @@
     </Compile>
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LampForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="NikoRoomba.cs">
       <SubType>Form</SubType>
@@ -199,6 +211,14 @@
     </Compile>
     <Content Include="Minesweeper_2005.ico" />
     <EmbeddedResource Include="Resources\niko_message-en.png" />
+    <EmbeddedResource Include="Resources\qr-code.png" />
+    <EmbeddedResource Include="Resources\Distant.mp3" />
+    <EmbeddedResource Include="Resources\Cg_dream1_1.png" />
+    <EmbeddedResource Include="Resources\Cg_dream1_2.png" />
+    <EmbeddedResource Include="Resources\Cg_dream1_3.png" />
+    <EmbeddedResource Include="Resources\Cg_dream1_4.png" />
+    <EmbeddedResource Include="Resources\lightbulbbroken.png" />
+    <Content Include="Resources\lightbulb.png" />
     <Content Include="Resources\Terminus %28TTF%29 Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

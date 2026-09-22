@@ -24,7 +24,6 @@ namespace Minesweeper
 
         public MainMenu()
         {
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US"); // Временная строка для проверки англ. локализации
             InitializeComponent();
 
             Version v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

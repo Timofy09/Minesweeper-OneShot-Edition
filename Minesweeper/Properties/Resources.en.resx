@@ -204,15 +204,6 @@ We did it, </value>
   <data name="DefaultGameFormName" xml:space="preserve">
     <value>Minesweeper</value>
   </data>
-  <data name="NightMessage1" xml:space="preserve">
-    <value>It's really late. You look tired... maybe you should take a break and get some sleep? It's </value>
-  </data>
-  <data name="NightMessage2" xml:space="preserve">
-    <value> already. Goodnight. Are you going to sleep?</value>
-  </data>
-  <data name="NightMessageTitle" xml:space="preserve">
-    <value>Go to sleep, </value>
-  </data>
   <data name="Auto-Theme" xml:space="preserve">
     <value>Auto-theme</value>
   </data>
@@ -237,19 +228,56 @@ We did it, </value>
   <data name="Niko" xml:space="preserve">
     <value>Niko</value>
   </data>
-  <data name="ForceCloseMsgBox1" xml:space="preserve">
-    <value>You interrupted my ride, </value>
+  <data name="ForceCloseMsg" xml:space="preserve">
+    <value>Did you really think you could just restart everything?
+
+There is no sun anymore.</value>
   </data>
-  <data name="ForceCloseMsgBox2" xml:space="preserve">
-    <value> And the lightbulb shattered...</value>
+  <data name="Lightbulb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lightbulb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ForceCloseMsgBox3" xml:space="preserve">
-    <value>Will you apologize?</value>
+  <data name="QrCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\qr-code.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ForceCloseMsgBoxYes" xml:space="preserve">
-    <value>...Okay. But be careful next time.</value>
+  <data name="ForceCloseMsgTitle" xml:space="preserve">
+    <value>World Machine</value>
   </data>
-  <data name="ForceCloseMsgBoxNo" xml:space="preserve">
-    <value>...I knew it.</value>
+  <data name="BsodMain" xml:space="preserve">
+    <value>Your PC ran into a problem and needs to restart. We're
+just collecting some error info, and then we'll restart for 
+you.</value>
+  </data>
+  <data name="Cg_dream1_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cg_dream1_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cg_dream1_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cg_dream1_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cg_dream1_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cg_dream1_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cg_dream1_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cg_dream1_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BsodPercent" xml:space="preserve">
+    <value>{0}% completed</value>
+  </data>
+  <data name="BsodLink" xml:space="preserve">
+    <value>For more information about this issue and possible fixes, visit
+https://timofy09.itch.io/minesweeper-oneshot-edition</value>
+  </data>
+  <data name="BsodStopcode" xml:space="preserve">
+    <value>If you call a support person, give them this info:
+Stop code: WORLD_MACHINE_FAILURE
+What failed: Niko.exe</value>
+  </data>
+  <data name="LightbulbBroken" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lightbulbbroken.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NightMsg" xml:space="preserve">
+    <value>I am i little tired. Is it alright if i take a nap?</value>
+  </data>
+  <data name="Goodnight" xml:space="preserve">
+    <value>Thank you, good night!</value>
   </data>
 </root>

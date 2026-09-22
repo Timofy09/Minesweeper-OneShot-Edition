@@ -79,11 +79,92 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Дополнительные сведения об этой проблеме и возможных способах ее устранения см. на странице 
+        ///https://timofy09.itch.io/minesweeper-oneshot-edition.
+        /// </summary>
+        internal static string BsodLink {
+            get {
+                return ResourceManager.GetString("BsodLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на На вашем ПК возникла проблема, и его необходимо перезагрузить.
+        ///Мы лишь собираем некоторые сведения об ошибке, а затем будет
+        ///автоматически выполнена перезагрузка..
+        /// </summary>
+        internal static string BsodMain {
+            get {
+                return ResourceManager.GetString("BsodMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на {0}% завершено.
+        /// </summary>
+        internal static string BsodPercent {
+            get {
+                return ResourceManager.GetString("BsodPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на При обращении в службу поддержки, предоставьте следующие данные:
+        ///Код остановки: WORLD_MACHINE_FAILURE
+        ///Что вызвало ошибку: Niko.exe.
+        /// </summary>
+        internal static string BsodStopcode {
+            get {
+                return ResourceManager.GetString("BsodStopcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Клетка.
         /// </summary>
         internal static string Cell {
             get {
                 return ResourceManager.GetString("Cell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cg_dream1_1 {
+            get {
+                object obj = ResourceManager.GetObject("Cg_dream1_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cg_dream1_2 {
+            get {
+                object obj = ResourceManager.GetObject("Cg_dream1_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cg_dream1_3 {
+            get {
+                object obj = ResourceManager.GetObject("Cg_dream1_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cg_dream1_4 {
+            get {
+                object obj = ResourceManager.GetObject("Cg_dream1_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -236,47 +317,22 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ты прервал мою поездку, .
+        ///   Ищет локализованную строку, похожую на Ты правда думал, что можно просто перезапустить всё заново?
+        ///
+        ///Солнца больше нет..
         /// </summary>
-        internal static string ForceCloseMsgBox1 {
+        internal static string ForceCloseMsg {
             get {
-                return ResourceManager.GetString("ForceCloseMsgBox1", resourceCulture);
+                return ResourceManager.GetString("ForceCloseMsg", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на  И лампочка разбилась....
+        ///   Ищет локализованную строку, похожую на Мировая машина.
         /// </summary>
-        internal static string ForceCloseMsgBox2 {
+        internal static string ForceCloseMsgTitle {
             get {
-                return ResourceManager.GetString("ForceCloseMsgBox2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Попросишь прощения?.
-        /// </summary>
-        internal static string ForceCloseMsgBox3 {
-            get {
-                return ResourceManager.GetString("ForceCloseMsgBox3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на ...Я так и знал..
-        /// </summary>
-        internal static string ForceCloseMsgBoxNo {
-            get {
-                return ResourceManager.GetString("ForceCloseMsgBoxNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на ...Ладно. Но в следующий раз будь осторожнее..
-        /// </summary>
-        internal static string ForceCloseMsgBoxYes {
-            get {
-                return ResourceManager.GetString("ForceCloseMsgBoxYes", resourceCulture);
+                return ResourceManager.GetString("ForceCloseMsgTitle", resourceCulture);
             }
         }
         
@@ -286,6 +342,15 @@ namespace Minesweeper.Properties {
         internal static string Glen {
             get {
                 return ResourceManager.GetString("Glen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Спасибо, спокойной ночи!.
+        /// </summary>
+        internal static string Goodnight {
+            get {
+                return ResourceManager.GetString("Goodnight", resourceCulture);
             }
         }
         
@@ -321,6 +386,26 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Lightbulb {
+            get {
+                object obj = ResourceManager.GetObject("Lightbulb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LightbulbBroken {
+            get {
+                object obj = ResourceManager.GetObject("LightbulbBroken", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Мины.
         /// </summary>
         internal static string Mines {
@@ -330,29 +415,11 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Тебе стоит отдохнуть... может взять перерыв и поспать? Уже .
+        ///   Ищет локализованную строку, похожую на Я немного устал. Ты не против если я вздремну?.
         /// </summary>
-        internal static string NightMessage1 {
+        internal static string NightMsg {
             get {
-                return ResourceManager.GetString("NightMessage1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  ночи. Спокойной ночи. Пойдёшь спать?.
-        /// </summary>
-        internal static string NightMessage2 {
-            get {
-                return ResourceManager.GetString("NightMessage2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Иди спать, .
-        /// </summary>
-        internal static string NightMessageTitle {
-            get {
-                return ResourceManager.GetString("NightMessageTitle", resourceCulture);
+                return ResourceManager.GetString("NightMsg", resourceCulture);
             }
         }
         
@@ -381,6 +448,16 @@ namespace Minesweeper.Properties {
         internal static string NikoOnRoomba {
             get {
                 return ResourceManager.GetString("NikoOnRoomba", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QrCode {
+            get {
+                object obj = ResourceManager.GetObject("QrCode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
