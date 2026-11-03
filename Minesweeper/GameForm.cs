@@ -371,7 +371,9 @@ namespace Minesweeper
         private void GameForm_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            Font font = new Font("Segoe UI Emoji", 14);
+
+            Font flagFont = new Font("Segoe UI Emoji", 14);
+            Font font = new Font(Program.pfc.Families[0], 21, FontStyle.Bold);
 
             Color openColor = Color.White;
             Color closedColor = Color.LightGray;
@@ -444,7 +446,7 @@ namespace Minesweeper
                                     else if (map[x, y] == 9) color = Brushes.Violet;
                                 }
 
-                                g.DrawString(map[x, y].ToString(), font, color, rect.X + 5, rect.Y);
+                                g.DrawString(map[x, y].ToString(), font, color, rect.X + 1, rect.Y - 1);
                             }
                         }
                         else
@@ -453,7 +455,7 @@ namespace Minesweeper
 
                             if (flagged[x, y])
                             {
-                                g.DrawString("🚩", font, Brushes.Red, rect.X - 2, rect.Y);
+                                g.DrawString("🚩", flagFont, Brushes.Red, rect.X - 2, rect.Y);
                             }
                         }
 
@@ -467,6 +469,7 @@ namespace Minesweeper
         {
             Program.NikoJumpscareDone = false;
             Program.Scare1 = false;
+            Program.PlayNoSound();
             foreach (Form f in Application.OpenForms)
             {
                 if (f is MainMenu menu)
