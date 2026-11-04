@@ -148,8 +148,8 @@ namespace Minesweeper
             };
 
             niko.Show();
-
         }
+
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Program.NikoRiding)

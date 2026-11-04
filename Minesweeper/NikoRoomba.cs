@@ -23,6 +23,7 @@ namespace Minesweeper
         private Timer storyTimer;
         private Timer moveTimer;
         private Timer fadeTimer;
+        private Timer directionTimer; // Таймер для частой смены направления
 
         private int secondsPassed = 0;
         private Random random = new Random();
@@ -30,17 +31,21 @@ namespace Minesweeper
         private PictureBox nikoBox;
         private Rectangle screenBounds;
         private Point startLocation;
+        private double exactX;
+        private double exactY;
+        private double baseSpeed = 3.5;
+        private double currentSpeedX = 0;
+        private double currentSpeedY = 0;
+        private double targetSpeedX = 0;
+        private double targetSpeedY = 0;
 
-        private int dx = 0;
-        private int dy = 0;
-        private int baseSpeed = 4;
         private double targetOpacity = 1.0;
 
         public NikoRoomba(Form parentForm)
         {
             this.Opacity = 0;
             fadeTimer = new Timer();
-            fadeTimer.Interval = 75; 
+            fadeTimer.Interval = 75;
             fadeTimer.Tick += (s, e) => {
                 if (this.Opacity < targetOpacity) this.Opacity += 0.05;
                 else fadeTimer.Stop();
@@ -74,6 +79,9 @@ namespace Minesweeper
             startLocation = new Point(startX, startY);
             this.Location = startLocation;
 
+            exactX = startX;
+            exactY = startY;
+
             nikoBox.Image = LoadEmbeddedImage("NikoRoombaDown.png");
 
             storyTimer = new Timer();
@@ -81,8 +89,19 @@ namespace Minesweeper
             storyTimer.Tick += StoryTimer_Tick;
 
             moveTimer = new Timer();
-            moveTimer.Interval = 20;
+            moveTimer.Interval = 10;
             moveTimer.Tick += MoveTimer_Tick;
+
+            // Настраиваем таймер частых поворотов (каждые 700 мс меняет направление)
+            directionTimer = new Timer();
+            directionTimer.Interval = 700;
+            directionTimer.Tick += (s, e) => {
+                if (secondsPassed > 11 && secondsPassed < 75)
+                {
+                    ChooseRandomDirection();
+                }
+            };
+
             this.FormClosing += NikoRoomba_FormClosing;
         }
 
@@ -100,38 +119,19 @@ namespace Minesweeper
         {
             secondsPassed = 0;
             Program.NikoRiding = true;
+            Program.StopBGM();
+
+            Program.PlayMusic("IT'S TIME TO FIGHT CRIME.mp3", false);
             if (Program.MusicEnabled)
             {
-                Program.StopBGM();
-
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                string namespaceName = typeof(NikoRoomba).Namespace;
-                string fileName = "IT'S TIME TO FIGHT CRIME.mp3";
-                string resourcePath = $"{namespaceName}.Resources.{fileName}";
-                string tempPath = Path.Combine(Path.GetTempPath(), fileName);
-
-                try
-                {
-                    if (!File.Exists(tempPath))
-                    {
-                        using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
-                        using (FileStream fileStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write))
-                        {
-                            stream?.CopyTo(fileStream);
-                        }
-                    }
-                    Program.bgmPlayer.URL = tempPath;
-                    Program.bgmPlayer.settings.setMode("loop", false);
-                    Program.bgmPlayer.settings.volume = 70;
-                    Program.bgmPlayer.controls.play();
-                }
-                catch { }
+                Program.bgmPlayer.settings.volume = 70;
             }
 
             File.WriteAllText(Program.GetNikoDataPath(), "busy");
 
             storyTimer.Start();
             moveTimer.Start();
+            directionTimer.Start();
         }
 
         private void MoveTimer_Tick(object sender, EventArgs e)
@@ -141,39 +141,62 @@ namespace Minesweeper
                 int shakeX = random.Next(-1, 1);
                 int shakeY = random.Next(-1, 1);
                 this.Location = new Point(startLocation.X + shakeX, startLocation.Y + shakeY);
+                exactX = this.Left;
+                exactY = this.Top;
                 return;
             }
 
-            this.Left += dx;
-            this.Top += dy;
+            currentSpeedX += (targetSpeedX - currentSpeedX) * 0.1;
+            currentSpeedY += (targetSpeedY - currentSpeedY) * 0.1;
+
+            exactX += currentSpeedX;
+            exactY += currentSpeedY;
+
+            this.Left = (int)Math.Round(exactX);
+            this.Top = (int)Math.Round(exactY);
+
+            bool hitWall = false;
 
             if (this.Left <= screenBounds.Left)
             {
-                this.Left = screenBounds.Left;
-                dx = -dx;
-                UpdateSprite();
+                this.Left = screenBounds.Left + 4;
+                exactX = this.Left;
+                targetSpeedX = baseSpeed;
+                targetSpeedY = 0;
+                hitWall = true;
             }
             else if (this.Right >= screenBounds.Right)
             {
-                this.Left = screenBounds.Right - this.Width;
-                dx = -dx;
-                UpdateSprite();
+                this.Left = screenBounds.Right - this.Width - 4;
+                exactX = this.Left;
+                targetSpeedX = -baseSpeed;
+                targetSpeedY = 0;
+                hitWall = true;
             }
 
             if (this.Top <= screenBounds.Top)
             {
-                this.Top = screenBounds.Top;
-                dy = -dy;
-                UpdateSprite();
+                this.Top = screenBounds.Top + 4;
+                exactY = this.Top;
+                targetSpeedY = baseSpeed;
+                targetSpeedX = 0;
+                hitWall = true;
             }
             else if (this.Bottom >= screenBounds.Bottom)
             {
                 if (secondsPassed < 75)
                 {
-                    this.Top = screenBounds.Bottom - this.Height;
-                    dy = -dy;
-                    UpdateSprite();
+                    this.Top = screenBounds.Bottom - this.Height - 4;
+                    exactY = this.Top;
+                    targetSpeedY = -baseSpeed;
+                    targetSpeedX = 0;
+                    hitWall = true;
                 }
+            }
+
+            if (hitWall)
+            {
+                UpdateSprite();
             }
         }
 
@@ -184,20 +207,18 @@ namespace Minesweeper
             if (secondsPassed == 11)
             {
                 this.Location = startLocation;
-                dx = random.Next(0, 2) == 0 ? baseSpeed : -baseSpeed;
-                dy = -baseSpeed;
-                UpdateSprite();
-            }
+                exactX = startLocation.X;
+                exactY = startLocation.Y;
 
-            if (secondsPassed > 11 && secondsPassed < 75 && secondsPassed % 3 == 0)
-            {
-                ChooseRandomDirection();
+                targetSpeedX = random.Next(0, 2) == 0 ? baseSpeed : -baseSpeed;
+                targetSpeedY = 0;
+                UpdateSprite();
             }
 
             if (secondsPassed == 75)
             {
-                dx = 0;
-                dy = baseSpeed;
+                targetSpeedX = 0;
+                targetSpeedY = baseSpeed;
                 UpdateSprite();
             }
 
@@ -205,6 +226,7 @@ namespace Minesweeper
             {
                 storyTimer.Stop();
                 moveTimer.Stop();
+                directionTimer.Stop();
                 Program.StopBGM();
 
                 string path = Program.GetNikoDataPath();
@@ -219,10 +241,10 @@ namespace Minesweeper
             int roll = random.Next(0, 4);
             switch (roll)
             {
-                case 0: dx = baseSpeed; dy = 0; break;
-                case 1: dx = -baseSpeed; dy = 0; break;
-                case 2: dx = 0; dy = -baseSpeed; break;
-                case 3: dx = 0; dy = baseSpeed; break;
+                case 0: targetSpeedX = baseSpeed; targetSpeedY = 0; break;
+                case 1: targetSpeedX = -baseSpeed; targetSpeedY = 0; break;
+                case 2: targetSpeedX = 0; targetSpeedY = -baseSpeed; break;
+                case 3: targetSpeedX = 0; targetSpeedY = baseSpeed; break;
             }
             UpdateSprite();
         }
@@ -231,10 +253,10 @@ namespace Minesweeper
         {
             string imageName = "NikoRoombaDown.png";
 
-            if (dx > 0) imageName = "NikoRoombaRight.png";
-            else if (dx < 0) imageName = "NikoRoombaLeft.png";
-            else if (dy < 0) imageName = "NikoRoombaUp.png";
-            else if (dy > 0) imageName = "NikoRoombaDown.png";
+            if (targetSpeedX > 0) imageName = "NikoRoombaRight.png";
+            else if (targetSpeedX < 0) imageName = "NikoRoombaLeft.png";
+            else if (targetSpeedY < 0) imageName = "NikoRoombaUp.png";
+            else if (targetSpeedY > 0) imageName = "NikoRoombaDown.png";
 
             Image newImg = LoadEmbeddedImage(imageName);
             if (newImg != null)
@@ -248,7 +270,7 @@ namespace Minesweeper
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string namespaceName = typeof(NikoRoomba).Namespace;
-            string resourcePath = $"{namespaceName}.Resources.{fileName}";
+            string resourcePath = $"{namespaceName}.Resources.Sprites.{fileName}";
 
             using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
             {
@@ -257,7 +279,7 @@ namespace Minesweeper
             }
         }
 
-        private async void NikoRoomba_FormClosing(object sender, FormClosingEventArgs e)
+        async void NikoRoomba_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Program.NikoRiding)
             {
