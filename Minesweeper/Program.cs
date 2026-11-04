@@ -15,6 +15,7 @@ namespace Minesweeper
     internal static class Program
     {
         public static string UserName = Environment.UserName;
+        public static string Language = System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ru" ? "ru" : "en";
         public static int Theme = 0;
         public static int MapWidth = 9;
         public static int MapHeight = 9;

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Drawing.Text;
 using Minesweeper.Properties;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Minesweeper
 {
@@ -17,20 +18,22 @@ namespace Minesweeper
         private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
         private const int DWMWA_CAPTION_COLOR = 35;
 
-
         int width = Program.MapWidth;
         int height = Program.MapHeight;
         int minesCount = Program.MinesCount;
 
-        int[,] map; 
-        bool[,] revealed; 
+        int[,] map;
+        bool[,] revealed;
         bool[,] flagged;
 
         bool firstClick = true;
         bool gameOver = false;
-        
 
         int cellSize = 25;
+
+        private System.Windows.Forms.Timer gameTimer;
+        private int elapsedSeconds = 0;
+        private int totalClicks = 0;
 
         public GameForm()
         {
@@ -45,6 +48,10 @@ namespace Minesweeper
             this.ClientSize = new Size(width * cellSize, height * cellSize);
             this.MouseDown += GameForm_MouseDown;
             this.Paint += GameForm_Paint;
+
+            gameTimer = new System.Windows.Forms.Timer();
+            gameTimer.Interval = 1000;
+            gameTimer.Tick += (s, e) => { elapsedSeconds++; };
         }
 
         public void GameForm_Load(object sender, EventArgs e)
@@ -60,7 +67,7 @@ namespace Minesweeper
                 case 2: titleBarColor = 0x00210A1D; break;
                 case 3: titleBarColor = 0x00000000; break;
             }
-            
+
             try
             {
                 DwmSetWindowAttribute(this.Handle, DWMWA_CAPTION_COLOR, ref titleBarColor, sizeof(int));
@@ -144,15 +151,148 @@ namespace Minesweeper
                         revealed[x, y] = true;
         }
 
+        private int Calculate3BV()
+        {
+            bool[,] visited = new bool[width, height];
+            int bsv = 0;
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (map[x, y] == 0 && !visited[x, y] && map[x, y] != -1)
+                    {
+                        bsv++;
+                        RevealZeroAreaFor3BV(x, y, visited);
+                    }
+                }
+            }
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (map[x, y] > 0 && !visited[x, y] && map[x, y] != -1)
+                    {
+                        bsv++;
+                    }
+                }
+            }
+
+            return Math.Max(1, bsv);
+        }
+
+        private void RevealZeroAreaFor3BV(int startX, int startY, bool[,] visited)
+        {
+            Queue<Point> queue = new Queue<Point>();
+            queue.Enqueue(new Point(startX, startY));
+            visited[startX, startY] = true;
+
+            while (queue.Count > 0)
+            {
+                Point p = queue.Dequeue();
+
+                for (int dx = -1; dx <= 1; dx++)
+                {
+                    for (int dy = -1; dy <= 1; dy++)
+                    {
+                        int nx = p.X + dx;
+                        int ny = p.Y + dy;
+
+                        if (nx >= 0 && ny >= 0 && nx < width && ny < height && !visited[nx, ny] && map[nx, ny] != -1)
+                        {
+                            visited[nx, ny] = true;
+                            if (map[nx, ny] == 0)
+                            {
+                                queue.Enqueue(new Point(nx, ny));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private string GetScoreFilePath()
+        {
+            string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MinesweeperOneShot");
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            return Path.Combine(dir, "scores.txt");
+        }
+
+        private int LoadBestTime()
+        {
+            try
+            {
+                string path = GetScoreFilePath();
+                if (File.Exists(path))
+                {
+                    string[] lines = File.ReadAllLines(path);
+                    string key = $"{width}x{height}_{minesCount}";
+                    foreach (string line in lines)
+                    {
+                        string[] parts = line.Split(':');
+                        if (parts.Length == 2 && parts[0] == key)
+                        {
+                            return int.Parse(parts[1]);
+                        }
+                    }
+                }
+            }
+            catch { }
+            return -1;
+        }
+
+        private bool SaveBestTime(int newTime)
+        {
+            try
+            {
+                string path = GetScoreFilePath();
+                int currentBest = LoadBestTime();
+
+                if (currentBest == -1 || newTime < currentBest)
+                {
+                    string key = $"{width}x{height}_{minesCount}";
+                    List<string> updatedLines = new List<string>();
+                    bool updated = false;
+
+                    if (File.Exists(path))
+                    {
+                        foreach (string line in File.ReadAllLines(path))
+                        {
+                            string[] parts = line.Split(':');
+                            if (parts.Length == 2 && parts[0] == key)
+                            {
+                                updatedLines.Add($"{key}:{newTime}");
+                                updated = true;
+                            }
+                            else
+                            {
+                                updatedLines.Add(line);
+                            }
+                        }
+                    }
+
+                    if (!updated)
+                    {
+                        updatedLines.Add($"{key}:{newTime}");
+                    }
+
+                    File.WriteAllLines(path, updatedLines.ToArray());
+                    return true;
+                }
+            }
+            catch { }
+            return false;
+        }
+
         void ShowEndDialog(string Message, MessageBoxIcon IconType)
         {
-            
             Program.StopBGM();
             if (IconType == MessageBoxIcon.Warning)
             {
-                ShakeWindow(800,18);
+                ShakeWindow(800, 18);
             }
-            
+
             var result = MessageBox.Show(Message, Properties.Resources.World_sFate, MessageBoxButtons.YesNo, IconType);
 
             if (result == DialogResult.Yes)
@@ -160,7 +300,6 @@ namespace Minesweeper
                 Program.PlayYesSound();
                 gameOver = false;
                 RestartGame();
-                
             }
             else
             {
@@ -169,7 +308,6 @@ namespace Minesweeper
                 this.Close();
             }
         }
-
 
         async void ShakeWindow(int duration = 600, int startAmplitude = 15)
         {
@@ -180,9 +318,9 @@ namespace Minesweeper
 
             while (elapsed < duration)
             {
-               double progress = (double)elapsed / duration;
+                double progress = (double)elapsed / duration;
                 int currentAmplitude = (int)(startAmplitude * (1.0 - progress));
-    
+
                 if (currentAmplitude <= 0) break;
 
                 int shakeX = rnd.Next(-currentAmplitude, currentAmplitude + 1);
@@ -196,7 +334,7 @@ namespace Minesweeper
             this.Location = originalLocation;
         }
 
-        async void NikoJumpscare() 
+        async void NikoJumpscare()
         {
             try
             {
@@ -231,12 +369,47 @@ namespace Minesweeper
                 }
             }
 
+            gameTimer.Stop();
             RevealAllMines();
             Invalidate();
+
+            string statsMessage = "";
+            int finalTime = Math.Max(1, elapsedSeconds);
+            bool isNewRecord = SaveBestTime(finalTime);
+            int bsv = Calculate3BV();
+            double bsvSpeed = (double)bsv / finalTime;
+
+            int placedFlags = 0;
+            for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
+                    if (flagged[x, y]) placedFlags++;
+
+
+            if (Program.Language == "en")
+            {
+                    statsMessage =
+                    (isNewRecord ? "🏆 NEW RECORD!\n" : "") +
+                    $"Field: {width}x{height} / {minesCount} mines\n" +
+                    $"Time: {finalTime / 60:D2}:{finalTime % 60:D2} ({finalTime} sec)\n" +
+                    $"Flags: {placedFlags} / {minesCount}\n" +
+                    $"Clicks: {totalClicks}\n" +
+                    $"3BV / 3BV/s: {bsv} / {bsvSpeed:F2}\n\n";
+            }
+            else if (Program.Language == "ru")
+            {
+                statsMessage =
+                (isNewRecord ? "🏆 НОВЫЙ РЕКОРД!\n" : "") +
+                $"Поле: {width}x{height} / {minesCount} мин\n" +
+                $"Время: {finalTime / 60:D2}:{finalTime % 60:D2} ({finalTime} сек)\n" +
+                $"Флаги: {placedFlags} / {minesCount}\n" +
+                $"Клики: {totalClicks}\n" +
+                $"3BV / 3BV/s: {bsv} / {bsvSpeed:F2}\n\n";
+            }
+            
             this.BeginInvoke(new Action(() =>
             {
                 Program.PlayWinSound();
-                ShowEndDialog(Properties.Resources.EndDialogWin1 + Program.UserName + ". \n\n" + Properties.Resources.EndDialogWin2, MessageBoxIcon.None);
+                ShowEndDialog( Properties.Resources.EndDialogWin1 + " \n\n" + statsMessage + Properties.Resources.EndDialogWin2, MessageBoxIcon.Asterisk);
             }));
         }
 
@@ -248,6 +421,9 @@ namespace Minesweeper
 
             firstClick = true;
             gameOver = false;
+            elapsedSeconds = 0;
+            totalClicks = 0;
+            gameTimer.Stop();
 
             Program.PlayGameBGM();
             Invalidate();
@@ -302,6 +478,7 @@ namespace Minesweeper
 
         private void GameOver()
         {
+            gameTimer.Stop();
             Program.StopBGM();
             Program.PlayLoseSound();
             Random random = new Random();
@@ -313,7 +490,7 @@ namespace Minesweeper
             Program.Scare1 = false;
             RevealAllMines();
             Invalidate();
-            this.BeginInvoke(new Action(() => ShowEndDialog(Properties.Resources.EndDialogLose1 + Program.UserName + ". \n\n" + Properties.Resources.EndDialogLose2,MessageBoxIcon.Warning)));
+            this.BeginInvoke(new Action(() => ShowEndDialog(Properties.Resources.EndDialogLose1 + Program.UserName + ". \n\n" + Properties.Resources.EndDialogLose2, MessageBoxIcon.Warning)));
         }
 
         private void GameForm_MouseDown(object sender, MouseEventArgs e)
@@ -328,38 +505,42 @@ namespace Minesweeper
 
             if (e.Button == MouseButtons.Left)
             {
-                if (firstClick)
-                {
-                    GenerateMines(x, y);
-                    firstClick = false;
-                }
-
                 if (revealed[x, y] && map[x, y] > 0)
                 {
+                    totalClicks++;
                     if (TryOpenAroundNumber(x, y))
                     {
-
                         Program.PlayOpenSound();
                     }
                 }
-                else if (!flagged[x, y])
+                else if (!revealed[x, y] && !flagged[x, y])
                 {
+                    totalClicks++;
+                    if (firstClick)
+                    {
+                        GenerateMines(x, y);
+                        firstClick = false;
+                        gameTimer.Start();
+                    }
+
                     if (map[x, y] == -1)
                     {
                         GameOver();
                     }
-
-                    if (OpenCells(x, y))
+                    else
                     {
-                        Program.PlayOpenSound();
+                        if (OpenCells(x, y))
+                        {
+                            Program.PlayOpenSound();
+                        }
                     }
                 }
             }
-            
             else if (e.Button == MouseButtons.Right)
             {
                 if (!revealed[x, y])
                 {
+                    totalClicks++;
                     flagged[x, y] = !flagged[x, y];
                     CheckWin();
                 }
@@ -383,25 +564,25 @@ namespace Minesweeper
             {
                 case 0:
                     closedColor = Color.FromArgb(20, 17, 43);
-                    openColor = Color.FromArgb(58, 54, 113);  
+                    openColor = Color.FromArgb(58, 54, 113);
                     gridColor = Color.FromArgb(99, 95, 188);
                     break;
 
                 case 1:
-                    closedColor = Color.FromArgb(44, 59, 79);  
-                    openColor = Color.FromArgb(14, 93, 65);     
+                    closedColor = Color.FromArgb(44, 59, 79);
+                    openColor = Color.FromArgb(14, 93, 65);
                     gridColor = Color.FromArgb(22, 139, 112);
                     break;
 
                 case 2:
-                    closedColor = Color.FromArgb(29, 10, 33);    
-                    openColor = Color.FromArgb(94, 31, 67);     
+                    closedColor = Color.FromArgb(29, 10, 33);
+                    openColor = Color.FromArgb(94, 31, 67);
                     gridColor = Color.FromArgb(230, 62, 111);
                     break;
 
                 case 3:
-                    closedColor = Color.FromArgb(0, 0, 0);   
-                    openColor = Color.FromArgb(50, 20, 90);  
+                    closedColor = Color.FromArgb(0, 0, 0);
+                    openColor = Color.FromArgb(50, 20, 90);
                     gridColor = Color.FromArgb(150, 100, 255);
                     break;
             }
@@ -467,6 +648,7 @@ namespace Minesweeper
 
         private void GameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            gameTimer?.Stop();
             Program.NikoJumpscareDone = false;
             Program.Scare1 = false;
             Program.PlayNoSound();
@@ -477,7 +659,7 @@ namespace Minesweeper
                     menu.Show();
                     if (Program.MusicEnabled)
                     {
-                        menu.MainMenu_Load(null, null); 
+                        menu.MainMenu_Load(null, null);
                     }
                     break;
                 }
@@ -503,7 +685,7 @@ namespace Minesweeper
                     this.Text = Properties.Resources.Scare1 + Program.UserName + "?";
                     await Task.Delay(1000);
                     this.Text = Properties.Resources.DefaultGameFormName;
-                    if (random.Next(1,4) == 1)
+                    if (random.Next(1, 4) == 1)
                     Program.Scare1 = true;
                 }
             }
