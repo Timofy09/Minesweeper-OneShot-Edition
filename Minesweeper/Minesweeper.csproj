@@ -146,6 +146,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="HowToPlay.en.resx">
+      <DependentUpon>HowToPlay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NikoRoomba.resx">
       <DependentUpon>NikoRoomba.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,9 +174,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HowToPlay.en.resx">
-      <DependentUpon>HowToPlay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HowToPlay.resx">
       <DependentUpon>HowToPlay.cs</DependentUpon>
@@ -223,8 +223,10 @@
     <EmbeddedResource Include="Resources\Music\SomeplaceIKnow.mp3" />
     <EmbeddedResource Include="Resources\Music\MyBurdenIsLight.mp3" />
     <EmbeddedResource Include="Resources\Music\MyBurdenIsDead.mp3" />
+    <EmbeddedResource Include="Resources\Pictures\From_Niko.png" />
     <Content Include="Resources\Pictures\lightbulb.png" />
     <EmbeddedResource Include="Resources\Sounds\puzzle-solved-remix.wav" />
+    <EmbeddedResource Include="Resources\Pictures\nikoworker.png" />
     <Content Include="Resources\Terminus %28TTF%29 Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

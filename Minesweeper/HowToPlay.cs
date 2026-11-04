@@ -15,7 +15,7 @@ namespace Minesweeper
         public HowToPlay()
         {
             InitializeComponent();
-            label1.Text = Properties.Resources.HowToPlayText + Program.UserName + "!";
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -26,11 +26,8 @@ namespace Minesweeper
 
         private void HowToPlay_Load(object sender, EventArgs e)
         {
-            label1.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
+            label1.Font = new Font(Program.pfc.Families[0], 13, FontStyle.Regular);
             button1.Font = new Font(Program.pfc.Families[0], 14, FontStyle.Regular);
-            label2.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
-            label3.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
-            label4.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
         }
     }
 }

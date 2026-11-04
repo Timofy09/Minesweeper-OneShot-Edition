@@ -147,25 +147,6 @@
   <data name="Field" xml:space="preserve">
     <value>Field</value>
   </data>
-  <data name="HowToPlayText" xml:space="preserve">
-    <value>Minesweeper is a simple yet engaging game.
-It relies entirely on logic and a little bit of luck.
-
-Your goal is to uncover the entire 
-field by marking mine locations with 
-flags 🚩.
-
-Left Mouse Button (LMB) — Open a cell.
-Right Mouse Button (RMB) — Place or remove a flag.
-
-If you hit a mine, the game is over. The numbers indicate how many 
-mines are hidden in the adjacent 
-cells. Stay sharp, think ahead, and try 
-to clear the field without any 
-mistakes. 
-
-Good luck, </value>
-  </data>
   <data name="Cell" xml:space="preserve">
     <value>Cell</value>
   </data>
@@ -182,14 +163,6 @@ You failed to save them, </value>
   </data>
   <data name="World'sFate" xml:space="preserve">
     <value>World's fate</value>
-  </data>
-  <data name="EndDialogWin1" xml:space="preserve">
-    <value>Niko has carried the Sun to the very top!
-Light has returned to this world, and now everything will be alright.
-We did it, </value>
-  </data>
-  <data name="EndDialogWin2" xml:space="preserve">
-    <value>Want to experience this adventure again?</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="niko_message" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -279,5 +252,17 @@ What failed: Niko.exe</value>
   </data>
   <data name="Goodnight" xml:space="preserve">
     <value>Thank you, good night!</value>
+  </data>
+  <data name="NewRecord" xml:space="preserve">
+    <value>NEW RECORD!</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Difficulty</value>
+  </data>
+  <data name="EndDialogWin2" xml:space="preserve">
+    <value>Play again?</value>
+  </data>
+  <data name="EndDialogWin1" xml:space="preserve">
+    <value>Game statistics:</value>
   </data>
 </root>

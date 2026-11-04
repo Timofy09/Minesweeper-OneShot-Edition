@@ -147,22 +147,6 @@
   <data name="Field" xml:space="preserve">
     <value>Поле</value>
   </data>
-  <data name="HowToPlayText" xml:space="preserve">
-    <value>Сапёр — игра несложная.
-Она полностью построена на логике и иногда на везении.
-
-Твоя цель — открыть всё игровое поле,
-пометив места с минами флажками 🚩.
-
-Левой кнопкой мыши открывай клетки.
-Правой кнопкой мыши ставь или убирай флаг.
-
-Если ты открыл клетку с миной — игра окончена.
-Цифры в клетках показывают, сколько мин находится рядом с этой клеткой.
-Будь внимателен, думай наперёд и постарайся очистить всё поле без ошибок.
-
-Удачи, </value>
-  </data>
   <data name="Cell" xml:space="preserve">
     <value>Клетка</value>
   </data>
@@ -179,14 +163,6 @@
   </data>
   <data name="World'sFate" xml:space="preserve">
     <value>Судьба мира</value>
-  </data>
-  <data name="EndDialogWin1" xml:space="preserve">
-    <value>Нико донёс Солнце до самой вершины!
-Свет вернулся в этот мир, и теперь все будет хорошо.
-Мы справились, </value>
-  </data>
-  <data name="EndDialogWin2" xml:space="preserve">
-    <value>Хочешь пережить это приключение снова?</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="niko_message" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -276,5 +252,17 @@ https://timofy09.itch.io/minesweeper-oneshot-edition</value>
   </data>
   <data name="Goodnight" xml:space="preserve">
     <value>Спасибо, спокойной ночи!</value>
+  </data>
+  <data name="NewRecord" xml:space="preserve">
+    <value>НОВЫЙ РЕКОРД!</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Сложность</value>
+  </data>
+  <data name="EndDialogWin2" xml:space="preserve">
+    <value>Играть снова?</value>
+  </data>
+  <data name="EndDialogWin1" xml:space="preserve">
+    <value>Статистика игры:</value>
   </data>
 </root>
