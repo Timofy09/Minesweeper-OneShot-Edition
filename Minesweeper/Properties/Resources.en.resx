@@ -193,7 +193,7 @@ We did it, </value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="niko_message" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\niko_message-en.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\niko_message-en.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ErrorMsgBox" xml:space="preserve">
     <value>The World Machine encountered a fatal error:</value>
@@ -234,10 +234,10 @@ We did it, </value>
 There is no sun anymore.</value>
   </data>
   <data name="Lightbulb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lightbulb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\lightbulb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QrCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\qr-code.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\qr-code.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ForceCloseMsgTitle" xml:space="preserve">
     <value>World Machine</value>
@@ -248,16 +248,16 @@ just collecting some error info, and then we'll restart for
 you.</value>
   </data>
   <data name="Cg_dream1_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cg_dream1_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\Cg_dream1_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cg_dream1_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cg_dream1_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\Cg_dream1_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cg_dream1_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cg_dream1_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\Cg_dream1_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cg_dream1_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cg_dream1_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\Cg_dream1_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BsodPercent" xml:space="preserve">
     <value>{0}% completed</value>
@@ -272,7 +272,7 @@ Stop code: WORLD_MACHINE_FAILURE
 What failed: Niko.exe</value>
   </data>
   <data name="LightbulbBroken" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lightbulbbroken.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\Pictures\lightbulbbroken.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NightMsg" xml:space="preserve">
     <value>I am i little tired. Is it alright if i take a nap?</value>
