@@ -178,6 +178,15 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сложность.
+        /// </summary>
+        internal static string Difficulty {
+            get {
+                return ResourceManager.GetString("Difficulty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Отличный вариант для первого прохождения.
         /// </summary>
         internal static string Difficulty0Description {
@@ -270,9 +279,7 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Нико донёс Солнце до самой вершины!
-        ///Свет вернулся в этот мир, и теперь все будет хорошо.
-        ///Мы справились, .
+        ///   Ищет локализованную строку, похожую на Статистика игры:.
         /// </summary>
         internal static string EndDialogWin1 {
             get {
@@ -281,7 +288,7 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Хочешь пережить это приключение снова?.
+        ///   Ищет локализованную строку, похожую на Играть снова?.
         /// </summary>
         internal static string EndDialogWin2 {
             get {
@@ -355,28 +362,6 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Сапёр — игра несложная.
-        ///Она полностью построена на логике и иногда на везении.
-        ///
-        ///Твоя цель — открыть всё игровое поле,
-        ///пометив места с минами флажками 🚩.
-        ///
-        ///Левой кнопкой мыши открывай клетки.
-        ///Правой кнопкой мыши ставь или убирай флаг.
-        ///
-        ///Если ты открыл клетку с миной — игра окончена.
-        ///Цифры в клетках показывают, сколько мин находится рядом с этой клеткой.
-        ///Будь внимателен, думай наперёд и постарайся очистить всё поле без ошибок.
-        ///
-        ///Удачи, .
-        /// </summary>
-        internal static string HowToPlayText {
-            get {
-                return ResourceManager.GetString("HowToPlayText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на ru.
         /// </summary>
         internal static string Language {
@@ -411,6 +396,15 @@ namespace Minesweeper.Properties {
         internal static string Mines {
             get {
                 return ResourceManager.GetString("Mines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на НОВЫЙ РЕКОРД!.
+        /// </summary>
+        internal static string NewRecord {
+            get {
+                return ResourceManager.GetString("NewRecord", resourceCulture);
             }
         }
         

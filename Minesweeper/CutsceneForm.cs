@@ -44,7 +44,7 @@ namespace Minesweeper
             try
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                string resourcePath = $"{typeof(Program).Namespace}.Resources.{fileName}";
+                string resourcePath = $"{typeof(Program).Namespace}.Resources.Pictures.{fileName}";
                 using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
                 {
                     if (stream != null) return Image.FromStream(stream);

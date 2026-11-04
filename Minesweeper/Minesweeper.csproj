@@ -110,6 +110,11 @@
     <Compile Include="NikoRoomba.Designer.cs">
       <DependentUpon>NikoRoomba.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.en.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,14 +146,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="HowToPlay.en.resx">
+      <DependentUpon>HowToPlay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NikoRoomba.resx">
       <DependentUpon>NikoRoomba.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\IT%27S TIME TO FIGHT CRIME.mp3" />
-    <EmbeddedResource Include="Resources\NikoRoombaDown.png" />
-    <EmbeddedResource Include="Resources\NikoRoombaLeft.png" />
-    <EmbeddedResource Include="Resources\NikoRoombaRight.png" />
-    <EmbeddedResource Include="Resources\NikoRoombaUp.png" />
+    <EmbeddedResource Include="Resources\Music\IT%27S TIME TO FIGHT CRIME.mp3" />
+    <EmbeddedResource Include="Resources\Sprites\NikoRoombaDown.png" />
+    <EmbeddedResource Include="Resources\Sprites\NikoRoombaLeft.png" />
+    <EmbeddedResource Include="Resources\Sprites\NikoRoombaRight.png" />
+    <EmbeddedResource Include="Resources\Sprites\NikoRoombaUp.png" />
     <EmbeddedResource Include="About.en.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,9 +175,6 @@
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HowToPlay.en.resx">
-      <DependentUpon>HowToPlay.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="HowToPlay.resx">
       <DependentUpon>HowToPlay.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,14 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.en.Designer.cs</LastGenOutput>
@@ -210,15 +210,23 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Content Include="Minesweeper_2005.ico" />
-    <EmbeddedResource Include="Resources\niko_message-en.png" />
-    <EmbeddedResource Include="Resources\qr-code.png" />
-    <EmbeddedResource Include="Resources\Distant.mp3" />
-    <EmbeddedResource Include="Resources\Cg_dream1_1.png" />
-    <EmbeddedResource Include="Resources\Cg_dream1_2.png" />
-    <EmbeddedResource Include="Resources\Cg_dream1_3.png" />
-    <EmbeddedResource Include="Resources\Cg_dream1_4.png" />
-    <EmbeddedResource Include="Resources\lightbulbbroken.png" />
-    <Content Include="Resources\lightbulb.png" />
+    <EmbeddedResource Include="Resources\Pictures\niko_message-en.png" />
+    <EmbeddedResource Include="Resources\Pictures\qr-code.png" />
+    <EmbeddedResource Include="Resources\Music\Distant.mp3" />
+    <EmbeddedResource Include="Resources\Pictures\Cg_dream1_1.png" />
+    <EmbeddedResource Include="Resources\Pictures\Cg_dream1_2.png" />
+    <EmbeddedResource Include="Resources\Pictures\Cg_dream1_3.png" />
+    <EmbeddedResource Include="Resources\Pictures\Cg_dream1_4.png" />
+    <EmbeddedResource Include="Resources\Pictures\lightbulbbroken.png" />
+    <EmbeddedResource Include="Resources\Music\Distant Water.mp3" />
+    <EmbeddedResource Include="Resources\Music\Factory.mp3" />
+    <EmbeddedResource Include="Resources\Music\SomeplaceIKnow.mp3" />
+    <EmbeddedResource Include="Resources\Music\MyBurdenIsLight.mp3" />
+    <EmbeddedResource Include="Resources\Music\MyBurdenIsDead.mp3" />
+    <EmbeddedResource Include="Resources\Pictures\From_Niko.png" />
+    <Content Include="Resources\Pictures\lightbulb.png" />
+    <EmbeddedResource Include="Resources\Sounds\puzzle-solved-remix.wav" />
+    <EmbeddedResource Include="Resources\Pictures\nikoworker.png" />
     <Content Include="Resources\Terminus %28TTF%29 Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -259,16 +267,16 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Resources\item_get.wav" />
-    <EmbeddedResource Include="Resources\menu_cancel.wav" />
-    <EmbeddedResource Include="Resources\menu_cursor.wav" />
-    <EmbeddedResource Include="Resources\menu_decision.wav" />
-    <EmbeddedResource Include="Resources\niko_message.png" />
-    <EmbeddedResource Include="Resources\puzzle_solved.wav" />
-    <EmbeddedResource Include="Resources\On Little Cat Feet.mp3" />
-    <EmbeddedResource Include="Resources\Abandoned Factory.mp3" />
-    <EmbeddedResource Include="Resources\shatter.wav" />
-    <EmbeddedResource Include="Resources\tock.wav" />
+    <EmbeddedResource Include="Resources\Sounds\item_get.wav" />
+    <EmbeddedResource Include="Resources\Sounds\menu_cancel.wav" />
+    <EmbeddedResource Include="Resources\Sounds\menu_cursor.wav" />
+    <EmbeddedResource Include="Resources\Sounds\menu_decision.wav" />
+    <EmbeddedResource Include="Resources\Pictures\niko_message.png" />
+    <EmbeddedResource Include="Resources\Sounds\puzzle_solved.wav" />
+    <EmbeddedResource Include="Resources\Music\On Little Cat Feet.mp3" />
+    <EmbeddedResource Include="Resources\Music\Abandoned Factory.mp3" />
+    <EmbeddedResource Include="Resources\Sounds\shatter.wav" />
+    <EmbeddedResource Include="Resources\Sounds\tock.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

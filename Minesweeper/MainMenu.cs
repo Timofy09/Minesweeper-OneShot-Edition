@@ -42,9 +42,9 @@ namespace Minesweeper
                     label2.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
                     label3.Font = new Font(Program.pfc.Families[0], 10, FontStyle.Regular);
                     label4.Font = new Font(Program.pfc.Families[0], 13, FontStyle.Regular);
-                    NewGameButton.Font = new Font(Program.pfc.Families[0], 11, FontStyle.Regular);
-                    HowToPlayButton.Font = new Font(Program.pfc.Families[0], 11, FontStyle.Regular);
-                    SettingsButton.Font = new Font(Program.pfc.Families[0], 11, FontStyle.Regular);
+                    NewGameButton.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
+                    HowToPlayButton.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
+                    SettingsButton.Font = new Font(Program.pfc.Families[0], 12, FontStyle.Regular);
                 }
             }
             catch (Exception ex)
@@ -148,8 +148,8 @@ namespace Minesweeper
             };
 
             niko.Show();
-
         }
+
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Program.NikoRiding)

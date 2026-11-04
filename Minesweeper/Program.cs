@@ -15,11 +15,13 @@ namespace Minesweeper
     internal static class Program
     {
         public static string UserName = Environment.UserName;
+        public static string Language = System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ru" ? "ru" : "en";
         public static int Theme = 0;
         public static int MapWidth = 9;
         public static int MapHeight = 9;
         public static int MinesCount = 10;
         public static int CellSize = 30;
+        public static bool maxDiffuculty = false;
         public static bool NikoRiding = false;
         public static bool MusicEnabled = true;
         public static bool SFXEnabled = true;
@@ -28,7 +30,7 @@ namespace Minesweeper
         public static bool NightMsgBox = false;
         public static WindowsMediaPlayer bgmPlayer = new WindowsMediaPlayer();
         public static PrivateFontCollection pfc = new PrivateFontCollection();
-
+      
         private static string currentTempMp3Path = "";
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace Minesweeper
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 string namespaceName = typeof(Program).Namespace;
-                string resourcePath = $"{namespaceName}.Resources.{fileName}";
+                string resourcePath = $"{namespaceName}.Resources.Sounds.{fileName}";
 
                 using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
                 {
@@ -105,7 +107,7 @@ namespace Minesweeper
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 string namespaceName = typeof(Program).Namespace;
-                string resourcePath = $"{namespaceName}.Resources.{fileName}";
+                string resourcePath = $"{namespaceName}.Resources.Music.{fileName}";
 
                 string tempPath = Path.Combine(Path.GetTempPath(), $"minesweeper_oneshot_{fileName}");
                 if (!File.Exists(tempPath))
@@ -122,7 +124,7 @@ namespace Minesweeper
                 currentTempMp3Path = tempPath;
                 bgmPlayer.URL = tempPath;
                 bgmPlayer.settings.setMode("loop", loop);
-                bgmPlayer.settings.volume = 70;
+                bgmPlayer.settings.volume = 40;
                 bgmPlayer.controls.play();
             }
             catch (Exception ex)
@@ -252,7 +254,15 @@ namespace Minesweeper
 
         public static void PlayWinSound()
         {
-            PlaySoundFromResource("puzzle_solved.wav");
+            if (DifficultySelector.maxDifficulty == false)
+            {
+                PlaySoundFromResource("puzzle_solved.wav");
+            }
+            else
+            {
+                PlaySoundFromResource("puzzle-solved-remix.wav");
+            }
+           
         }
 
         public static void PlayStartSound()
@@ -267,12 +277,29 @@ namespace Minesweeper
 
         public static void PlayMenuBGM()
         {
-            PlayMusic("On Little Cat Feet.mp3", true);
+            PlayMusic("MyBurdenIsLight.mp3", true);
         }
 
         public static void PlayGameBGM()
         {
-            PlayMusic("Abandoned Factory.mp3", true);
+            switch (Theme)
+            {
+                case 0:
+                    PlayMusic("Abandoned Factory.mp3", true);
+                    break;
+
+                case 1:
+                    PlayMusic("SomeplaceIKnow.mp3", true);
+                    break;
+
+                case 2:
+                    PlayMusic("Factory.mp3", true);
+                    break;
+
+                case 3:
+                    PlayMusic("Distant Water.mp3", true);
+                    break;
+            }
         }
     }
 }
