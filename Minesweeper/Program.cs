@@ -20,6 +20,7 @@ namespace Minesweeper
         public static int MapHeight = 9;
         public static int MinesCount = 10;
         public static int CellSize = 30;
+        public static bool maxDiffuculty = false;
         public static bool NikoRiding = false;
         public static bool MusicEnabled = true;
         public static bool SFXEnabled = true;
@@ -252,7 +253,15 @@ namespace Minesweeper
 
         public static void PlayWinSound()
         {
-            PlaySoundFromResource("puzzle_solved.wav");
+            if (DifficultySelector.maxDifficulty == false)
+            {
+                PlaySoundFromResource("puzzle_solved.wav");
+            }
+            else
+            {
+                PlaySoundFromResource("puzzle-solved-remix.wav");
+            }
+           
         }
 
         public static void PlayStartSound()
