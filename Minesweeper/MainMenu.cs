@@ -21,6 +21,9 @@ namespace Minesweeper
         private const int DWMWA_CAPTION_COLOR = 35;
         private HowToPlay guide; 
         private Settings settings;
+        private int clickCount = 0;
+        private const int targetClicks = 12;
+        private bool isExploded = false;
 
         public MainMenu()
         {
@@ -157,6 +160,52 @@ namespace Minesweeper
                 System.Threading.Thread.Sleep(500);
             }
             Application.Exit();
+        }
+
+        private DateTime lastClickTime = DateTime.MinValue;
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (isExploded) return;
+
+            clickCount++;
+            Program.PlaySoundFromResource("meow.wav");
+
+            if (clickCount >= targetClicks)
+            {
+                Program.PlaySoundFromResource("explosion.wav");
+                isExploded = true;
+
+                try
+                {
+                    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                    string resourceName = "Minesweeper.Resources.GIFs.explode.gif";
+
+                    using (var stream = assembly.GetManifestResourceStream(resourceName))
+                    {
+                        if (stream != null)
+                        {
+                            byte[] buffer = new byte[stream.Length];
+                            stream.Read(buffer, 0, buffer.Length);
+                            pictureBox1.Image = Image.FromStream(new MemoryStream(buffer));
+                        }
+                    }
+
+                    System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                    timer.Interval = 1000;
+                    timer.Tick += (s, args) =>
+                    {
+                        timer.Stop();
+                        timer.Dispose();
+                        pictureBox1.Visible = false;
+                    };
+                    timer.Start();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Properties.Resources.ErrorMsgBox + "Error loading embedded resource. " + ex.Message);
+                }
+            }
         }
     }
 }

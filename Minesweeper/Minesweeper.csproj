@@ -224,9 +224,12 @@
     <EmbeddedResource Include="Resources\Music\MyBurdenIsLight.mp3" />
     <EmbeddedResource Include="Resources\Music\MyBurdenIsDead.mp3" />
     <EmbeddedResource Include="Resources\Pictures\From_Niko.png" />
+    <EmbeddedResource Include="Resources\GIFs\explode.gif" />
     <Content Include="Resources\Pictures\lightbulb.png" />
     <EmbeddedResource Include="Resources\Sounds\puzzle-solved-remix.wav" />
     <EmbeddedResource Include="Resources\Pictures\nikoworker.png" />
+    <EmbeddedResource Include="Resources\Sounds\meow.wav" />
+    <EmbeddedResource Include="Resources\Sounds\explosion.wav" />
     <Content Include="Resources\Terminus %28TTF%29 Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
