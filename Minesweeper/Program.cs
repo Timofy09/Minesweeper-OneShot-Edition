@@ -73,7 +73,7 @@ namespace Minesweeper
             return Path.Combine(folder, "niko_state.txt");
         }
 
-        private static void PlaySoundFromResource(string fileName)
+        public static void PlaySoundFromResource(string fileName)
         {
             if (!SFXEnabled) return;
             try
